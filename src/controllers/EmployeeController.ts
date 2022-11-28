@@ -54,8 +54,8 @@ export default class EmployeeController {
     res: Response
   ) {
     try {
-      const { EmployeeID } = req.body;
-      const data = await EmployeeModel.deleteEmployee(EmployeeID);
+      const { EmployeeID } = req.params;
+      const data = await EmployeeModel.deleteEmployee(Number(EmployeeID));
       return res.send(data);
     } catch (error) {
       console.log(error);
