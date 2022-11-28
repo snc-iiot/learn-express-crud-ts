@@ -13,7 +13,7 @@ export default class EmployeeModel {
   public async createEmployee(Name: string, StartDate: string) {
     const query = `INSERT INTO Employees (Name, StartDate) VALUES ('${Name}', '${StartDate}');`;
     const result = await this.sql.execute(query);
-    return result.rowsAffected;
+    return { data: result.rowsAffected, error: null };
   }
 
   //! R = Read
@@ -30,6 +30,13 @@ export default class EmployeeModel {
     StartDate: string
   ) {
     const query = `UPDATE Employees SET Name='${Name}', StartDate='${StartDate}' WHERE EmployeeID=${EmployeeID};`;
+    const result = await this.sql.execute(query);
+    return result.rowsAffected;
+  }
+
+  //! D = Delete
+  public async deleteEmployee(EmployeeID: number) {
+    const query = `DELETE FROM Employees WHERE EmployeeID=${EmployeeID};`;
     const result = await this.sql.execute(query);
     return result.rowsAffected;
   }
