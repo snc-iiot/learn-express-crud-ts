@@ -9,10 +9,28 @@ export default class EmployeeModel {
     this.sql = new SQL(dbconfig);
   }
 
+  //! C = Create
+  public async createEmployee(Name: string, StartDate: string) {
+    const query = `INSERT INTO Employees (Name, StartDate) VALUES ('${Name}', '${StartDate}');`;
+    const result = await this.sql.execute(query);
+    return result.rowsAffected;
+  }
+
   //! R = Read
   public async getEmployees(): Promise<EmployeeInterface[]> {
     const query = "SELECT EmployeeID,Name,StartDate FROM Employees;";
     const result = await this.sql.execute(query);
     return result.recordset;
+  }
+
+  //! U = Update
+  public async updateEmployee(
+    EmployeeID: number,
+    Name: string,
+    StartDate: string
+  ) {
+    const query = `UPDATE Employees SET Name='${Name}', StartDate='${StartDate}' WHERE EmployeeID=${EmployeeID};`;
+    const result = await this.sql.execute(query);
+    return result.rowsAffected;
   }
 }
