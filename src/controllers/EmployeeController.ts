@@ -7,7 +7,9 @@ export default class EmployeeController {
       const data = await EmployeeModel.getEmployees();
       return res.send(data);
     } catch (error) {
-      return res.send([]);
+      console.log(error);
+
+      return res.status(500).send([]);
     }
   }
 }
